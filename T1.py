@@ -111,7 +111,7 @@ for i in range(len(edge)):
 
 
 
-sum=0
+
 print("\n")
 print("Welcome to Romania\n")
 Source=input("Enter the first alphabet in capital of your source: ")
