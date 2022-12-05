@@ -5,27 +5,27 @@ edge=list(prolog.query("edge(P1,P2,P3)"))
 heuristic_list=list(prolog.query("h(P1,P2)"))
 
 
-def aStarAlgo(start_node, stop_node):
-    open_set = set(start_node)
-    closed_set = set()
+def Astar(start_node, stop_node):
+    openSet = set(start_node)
+    closedSet = set()
     g = {}
     cost = 0
     parents = {}
     g[start_node] = 0
     parents[start_node] = start_node
 
-    while len(open_set) > 0:
+    while len(openSet) > 0:
         n = None
-        for v in open_set:
-            if n == None or g[v] + heuristic(v) < g[n] + heuristic(n):
-                n = v
+        for vertex in openSet:
+            if n == None or g[vertex] + heuristic(vertex) < g[n] + heuristic(n):
+                n = vertex
 
         if n == stop_node or Graph_nodes[n] == None:
             pass
         else:
             for (m, weight) in get_neighbors(n):
-                if m not in open_set and m not in closed_set:
-                    open_set.add(m)
+                if m not in openSet and m not in closedSet:
+                    openSet.add(m)
                     parents[m] = n
                     g[m] = g[n] + weight
 
@@ -35,9 +35,9 @@ def aStarAlgo(start_node, stop_node):
                         g[m] = g[n] + weight
                         parents[m] = n
 
-                        if m in closed_set:
-                            closed_set.remove(m)
-                            open_set.add(m)
+                        if m in closedSet:
+                            closedSet.remove(m)
+                            openSet.add(m)
 
         if n == None:
             print('Path does not exist!')
@@ -56,8 +56,8 @@ def aStarAlgo(start_node, stop_node):
 
             print(f'Your minimum cost path is : {path}')
             return path
-        open_set.remove(n)
-        closed_set.add(n)
+        openSet.remove(n)
+        closedSet.add(n)
 
     print('Path does not exist!')
     return None
@@ -117,7 +117,7 @@ print("Welcome to Romania\n")
 Source=input("Enter the first alphabet in capital of your source: ")
 Destination=input("Enter the first alphabet in capital of your destination: ")
 if Source in Graph_nodes and Destination in Graph_nodes:
-     path=aStarAlgo(Source,Destination)
+     path=Astar(Source, Destination)
 else:
     print("Entered Source or Destination doesn't exist please check!")
 # print(edge)
